@@ -35,4 +35,4 @@
 
 | Captura Antes | Captura Después |
 | :---: | :---: |
-| ![alt text](image.png) | *[ Pega aquí la captura con puntaje 100 ]* |
+| ![alt text](image-1.png) | ![alt text](image.png) |
