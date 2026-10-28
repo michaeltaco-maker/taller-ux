@@ -1,31 +1,47 @@
-const formulario = document.getElementById("formulario"); 
-const mensaje = document.getElementById("mensaje"); 
-const boton = formulario.querySelector(".boton-principal"); 
-function mostrarMensaje(texto, tipo) { 
- mensaje.textContent = texto; 
- mensaje.className = "mensaje " + tipo; 
-} 
-formulario.addEventListener("submit", function (evento) { 
- evento.preventDefault(); 
- formulario.classList.add("validado"); 
- if (!formulario.checkValidity()) { 
- mostrarMensaje("Revisa los campos marcados en rojo.", "error"); 
- formulario.querySelector("input:invalid, select:invalid").focus(); 
- return; 
- } 
- boton.disabled = true; 
- boton.textContent = "Enviando..."; 
- mostrarMensaje("Enviando tu inscripción...", "info"); 
- setTimeout(function () { 
- boton.disabled = false; 
- boton.textContent = "Inscribirme"; 
- const taller = document.getElementById("taller").value; 
- mostrarMensaje("¡Listo! Quedaste inscrito en el taller de " + taller + ".", "exito");  }, 1500); 
-}); 
-formulario.addEventListener("reset", function (evento) { 
- if (!confirm("¿Seguro que quieres borrar todos los datos del formulario?")) {  evento.preventDefault(); 
- return; 
- } 
- formulario.classList.remove("validado");
- mostrarMensaje("Formulario limpio. Puedes empezar de nuevo.", "info"); 
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('form-nota');
+  const input = document.getElementById('texto-nota');
+  const lista = document.getElementById('lista-notas');
+  const notificacion = document.getElementById('notificacion');
+  const errorNota = document.getElementById('error-nota');
+  function mostrarNotificacion(msj) {
+    notificacion.textContent = msj;
+    setTimeout(() => {
+      notificacion.textContent = '';
+    }, 3000);
+  }
+  input.addEventListener('input', () => {
+    if (input.value.trim() !== '') {
+      errorNota.textContent = '';
+    }
+  });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const texto = input.value.trim();
+    if (!texto) {
+      errorNota.textContent = 'No puedes agregar una nota vacía.';
+      input.focus();
+      return;
+    }
+    errorNota.textContent = '';
+    const li = document.createElement('li');
+    const spanTexto = document.createElement('span');
+    spanTexto.textContent = texto;
+    const btnEliminar = document.createElement('button');
+    btnEliminar.className = 'btn-eliminar';
+    btnEliminar.textContent = 'Eliminar';
+    btnEliminar.setAttribute('aria-label', `Eliminar nota: ${texto}`);
+    btnEliminar.addEventListener('click', () => {
+      if (confirm(`¿Estás seguro de que deseas eliminar la nota "${texto}"?`)) {
+        li.remove();
+        mostrarNotificacion('Nota eliminada correctamente.');
+      }
+    });
+    li.appendChild(spanTexto);
+    li.appendChild(btnEliminar);
+    lista.appendChild(li);
+    input.value = '';
+    input.focus();
+    mostrarNotificacion('¡Nota agregada con éxito!');
+  });
 });
