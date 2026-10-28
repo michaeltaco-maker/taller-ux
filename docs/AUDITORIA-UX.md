@@ -28,10 +28,11 @@
 * **Semántica:** Uso estricto de elementos HTML semánticos (`<main>`, `<section>`, `<h1>`, `<ul>`)[cite: 16].
 
 ---
+
 ## 4. Resultados de Lighthouse
 
 * **Puntaje obtenido:** 100 / 100 en Accesibilidad[cite: 3, 16].
 
 | Captura Antes | Captura Después |
 | :---: | :---: |
-| ![alt text](image-1.png) | ![alt text](image.png) |
+| ![alt text](image.png) | *[ Pega aquí la captura con puntaje 100 ]* |
